@@ -3,8 +3,10 @@ import os
 import openai
 from openai import OpenAI
 
+import save_data
 
-def get_bullet_points(article_text):
+
+def get_bullet_points(article_text, url):
     my_prompt = (f"""
             Based on the following text make a tight summary of the main issues 
             concerning this article in the form of bullet point.
@@ -25,4 +27,6 @@ def get_bullet_points(article_text):
         ]
     )
 
-    return response.choices[0].message.content.strip()
+    bullet_points = response.choices[0].message.content.strip()
+
+    save_data.save_bullet_points(bullet_points, url)
